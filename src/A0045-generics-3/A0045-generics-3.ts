@@ -10,9 +10,9 @@ type PessoaProtocolo2<T = string, U = number> = {
   idade: U;
 };
 
-const aluno1: PessoaProtocolo2<string, number> = {
-  nome: 'Luiz',
-  sobrenome: 'Miranda',
+const aluno1 = {
+  nome: 'Rebeca',
+  sobrenome: 'Andrade',
   idade: 30,
 };
 

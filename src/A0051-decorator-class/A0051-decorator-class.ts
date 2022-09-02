@@ -1,24 +1,17 @@
-@decorator
 export class Animal {
-  constructor(public nome: string, public cor: string) {}
+  constructor(public cor: string) {}
 }
 
-function decorator<T extends new (...args: any[]) => any>(target: T): T {
+function Decorator<T extends new (...args: any[]) => any>(target: T): T {
   return class extends target {
-    cor: string;
-    nome: string;
-
+    private raça: string;
     constructor(...args: any[]) {
-      super(...args);
-      this.nome = this.inverte(args[0]);
-      this.cor = this.inverte(args[1]);
-    }
-
-    inverte(valor: string): string {
-      return valor.split('').reverse().join('');
+      super(args);
+      this.raça = 'huhu';
     }
   };
 }
 
-const animal = new Animal('Luiz', 'roxo');
+const dec = Decorator(Animal);
+const animal = new dec('roxo');
 console.log(animal);

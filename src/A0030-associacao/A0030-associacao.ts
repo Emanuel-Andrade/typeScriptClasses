@@ -3,29 +3,23 @@ export class Escritor {
 
   constructor(private _nome: string) {}
 
-  get nome(): string {
-    return this._nome;
-  }
-
   set ferramenta(ferramenta: Ferramenta | null) {
     this._ferramenta = ferramenta;
   }
 
-  get ferramenta(): Ferramenta | null {
-    return this._ferramenta;
-  }
-
   escrever(): void {
-    if (this.ferramenta === null) {
-      console.log('Não posso escrever sem ferramenta...');
-      return;
-    }
-    this.ferramenta.escrever();
+    if (this._ferramenta == null)
+      return console.log('não há ferramenta para escrever');
+    this._ferramenta.escrever();
+  }
+  get nome(): string {
+    return this._nome;
   }
 }
 
 export abstract class Ferramenta {
   constructor(private _nome: string) {}
+
   abstract escrever(): void;
 
   get nome(): string {
@@ -35,25 +29,23 @@ export abstract class Ferramenta {
 
 export class Caneta extends Ferramenta {
   escrever(): void {
-    console.log(`${this.nome} está escrevendo...`);
+    console.log(this.nome + ' está escrevendo...');
   }
 }
 
 export class MaquinaEscrever extends Ferramenta {
   escrever(): void {
-    console.log(`${this.nome} está digitando...`);
+    console.log(this.nome + ' está digitando...');
   }
 }
 
-const escritor = new Escritor('Luiz');
-const caneta = new Caneta('Bic');
-const maquinaEscrever = new MaquinaEscrever('Máquina');
+const escritor = new Escritor('manel');
+const caneta = new Caneta('bic');
+const maquina = new Caneta('aerofolio');
 
-// console.log(escritor.nome);
-// console.log(caneta.nome);
-// console.log(maquinaEscrever.nome);
+console.log(escritor.nome);
+console.log(caneta.nome);
+console.log(maquina.nome);
 
 escritor.ferramenta = caneta;
-escritor.ferramenta = maquinaEscrever;
-escritor.ferramenta = null;
 escritor.escrever();

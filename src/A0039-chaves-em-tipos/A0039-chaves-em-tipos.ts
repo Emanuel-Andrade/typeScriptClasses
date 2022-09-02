@@ -1,18 +1,16 @@
-type Veiculo = {
-  marca: string;
+export type Veiculo = {
+  nome: string;
   ano: number;
 };
 
-type Car = {
-  brand: Veiculo['marca'];
+export type Car = {
   year: Veiculo['ano'];
-  name: string;
+  name: Veiculo['nome'];
 };
 
-const carro: Car = {
-  brand: 'Ford',
-  year: 2020,
-  name: 'Nome',
-};
+export class Fabrique {
+  constructor(public name: Veiculo['nome'], public year: Veiculo['ano']) {}
+}
 
-console.log(carro);
+const ford = new Fabrique('Ford', 2022);
+console.log(ford);

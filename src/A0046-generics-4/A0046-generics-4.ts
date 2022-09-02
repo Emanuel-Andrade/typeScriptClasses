@@ -1,17 +1,14 @@
-type ObterChaveFn = <O, K extends keyof O>(objeto: O, chave: K) => O[K];
+type obterChaveFn = <o, k extends keyof o>(objeto: o, chave: k) => o[k];
 
-const obterChave: ObterChaveFn = (objeto, chave) => objeto[chave];
+const obterChave: obterChaveFn = (objeto, chave) => objeto[chave];
 
-const animal = {
-  cor: 'Rosa',
-  vacinas: ['Vacina 1', 'Vacina 2'],
-  idade: 10,
+const carro = {
+  donos: ['Mario, Rose, Gabriel, Carlos'],
+  ano: 2014,
+  cor: 'verde',
+  modelo: 'Onix',
 };
 
-const vacinas = obterChave(animal, 'vacinas');
-const cor = obterChave(animal, 'cor');
+const tt = obterChave(carro, 'ano');
 
-console.log(vacinas, cor, obterChave(animal, 'idade'));
-
-// Module mode
-export default 1;
+console.log(tt);

@@ -1,6 +1,5 @@
-import isEmail from 'validator/lib/isEmail';
-
-const SHOW_ERROR_MESSAGES = 'show-error-message';
+import val from 'validator';
+const SHOW_ERROR_MESSAGE = 'show-error-message';
 
 const form = document.querySelector('.form') as HTMLFormElement;
 const username = document.querySelector('.username') as HTMLInputElement;
@@ -10,52 +9,44 @@ const password2 = document.querySelector('.password2') as HTMLInputElement;
 
 form.addEventListener('submit', function (event: Event) {
   event.preventDefault();
-  hideErrorMessages(this);
-  checkForEmptyFields(username, email, password, password2);
+  hideErrorMessage(this);
+  checkForEmptyField(username, password, password2);
   checkEmail(email);
-  checkEqualPasswords(password, password2);
-  if (shouldSendForm(this)) console.log('FORMULÁRIO ENVIADO');
+  checkPassword(password, password2);
 });
 
-function checkForEmptyFields(...inputs: HTMLInputElement[]): void {
-  inputs.forEach((input) => {
-    if (!input.value) showErrorMessage(input, 'Campo não pode ficar vazio');
+function hideErrorMessage(form: HTMLFormElement): void {
+  form
+    .querySelectorAll('.' + SHOW_ERROR_MESSAGE)
+    .forEach((item) => item.classList.remove(SHOW_ERROR_MESSAGE));
+}
+
+function checkForEmptyField(...fields: HTMLInputElement[]): void {
+  fields.forEach((item) => {
+    if (!item.value) showErrorMessage(item, 'Campo não pode ficar vazio');
   });
 }
 
-function checkEmail(input: HTMLInputElement): void {
-  if (!isEmail(input.value)) showErrorMessage(input, 'Email inválido');
+function checkEmail(item: HTMLInputElement): void {
+  if (!val.isEmail(item.value)) showErrorMessage(email, 'email inválido');
 }
 
-function checkEqualPasswords(
+function checkPassword(
   password: HTMLInputElement,
   password2: HTMLInputElement,
-) {
-  if (password.value !== password2.value) {
-    showErrorMessage(password, 'Senhas não batem');
-    showErrorMessage(password2, 'Senhas não batem');
+): void {
+  if (password.value != password2.value) {
+    showErrorMessage(password, 'Senhas devem ser iguais');
+    showErrorMessage(password2, 'Senhas devem ser iguais');
   }
-}
-
-function hideErrorMessages(form: HTMLFormElement): void {
-  form
-    .querySelectorAll('.' + SHOW_ERROR_MESSAGES)
-    .forEach((item) => item.classList.remove(SHOW_ERROR_MESSAGES));
 }
 
 function showErrorMessage(input: HTMLInputElement, msg: string): void {
   const formFields = input.parentElement as HTMLDivElement;
-  const errorMessage = formFields.querySelector(
+  const erroMessage = formFields.querySelector(
     '.error-message',
   ) as HTMLSpanElement;
-  errorMessage.innerText = msg;
-  formFields.classList.add(SHOW_ERROR_MESSAGES);
-}
-
-function shouldSendForm(form: HTMLFormElement): boolean {
-  let send = true;
-  form
-    .querySelectorAll('.' + SHOW_ERROR_MESSAGES)
-    .forEach(() => (send = false));
-  return send;
+  erroMessage.innerHTML = msg;
+  formFields.classList.add(SHOW_ERROR_MESSAGE);
+  console.log(erroMessage);
 }

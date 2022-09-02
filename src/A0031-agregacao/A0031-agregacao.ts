@@ -1,30 +1,27 @@
-export class CarrinhoDeCompras {
+export class Carrinho {
   private readonly produtos: Produto[] = [];
 
-  inserirProdutos(...produtos: Produto[]): void {
-    for (const produto of produtos) {
-      this.produtos.push(produto);
-    }
+  setProdutos(...produtos: Produto[]): void {
+    produtos.forEach((produto) => this.produtos.push(produto));
   }
 
-  quantidadeProdutos(): number {
-    return this.produtos.length;
+  mostrarProdutos(): Produto[] {
+    return this.produtos;
   }
-
   valorTotal(): number {
-    return this.produtos.reduce((soma, produto) => soma + produto.preco, 0);
+    return this.produtos.reduce((soma, produto) => soma + produto.preço, 0);
   }
 }
 
 export class Produto {
-  constructor(public nome: string, public preco: number) {}
+  constructor(public nome: string, public preço: number) {}
 }
 
-const produto1 = new Produto('Camiseta', 49.9);
-const produto2 = new Produto('Caneca', 1.9);
-const produto3 = new Produto('Caneta', 0.9);
+const produto1 = new Produto('Boné', 60);
+const produto2 = new Produto('dildo', 160);
+const produto3 = new Produto('ass', 30);
+const produto4 = new Produto('flashlight', 460);
+const carrinho = new Carrinho();
 
-const carrinhoDeCompras = new CarrinhoDeCompras();
-carrinhoDeCompras.inserirProdutos(produto1, produto2, produto3);
-console.log(carrinhoDeCompras.valorTotal());
-console.log(carrinhoDeCompras.quantidadeProdutos());
+carrinho.setProdutos(produto1, produto2, produto3, produto4);
+console.log(carrinho.valorTotal());

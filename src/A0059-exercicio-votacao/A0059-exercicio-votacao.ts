@@ -1,71 +1,52 @@
-type VotationOption = {
-  numberOfvotes: number;
+type VotationOptions = {
+  numberOfVotes: number;
   option: string;
 };
 
-export class Votation {
-  private _votationOptions: VotationOption[] = [];
+class Votation {
+  private _votationOptions: VotationOptions[] = [];
+
   constructor(public details: string) {}
 
-  addVotationOption(votationOption: VotationOption): void {
-    this._votationOptions.push(votationOption);
+  addOption(option: VotationOptions): void {
+    this._votationOptions.push(option);
   }
 
-  vote(votationIndex: number): void {
-    if (!this._votationOptions[votationIndex]) return;
-    this._votationOptions[votationIndex].numberOfvotes += 1;
+  vote(voteOption: number): void {
+    if (!this._votationOptions[voteOption]) return;
+    this._votationOptions[voteOption].numberOfVotes += 1;
   }
-
-  get votationOptions(): VotationOption[] {
+  get votationOptions(): VotationOptions[] {
     return this._votationOptions;
   }
 }
 
-export class VotationApp {
-  private votations: Votation[] = [];
+class VotationApp {
+  _votation: Votation[] = [];
 
   addVotation(votation: Votation): void {
-    this.votations.push(votation);
+    this._votation.push(votation);
   }
-
-  showVotations(): void {
-    for (const votation of this.votations) {
-      console.log(votation.details);
-      for (const vontationOption of votation.votationOptions) {
-        console.log(vontationOption.option, vontationOption.numberOfvotes);
-      }
-      console.log('###');
-      console.log('');
+  showVotation(): void {
+    for (const votations of this._votation) {
+      console.log(votations.votationOptions);
     }
   }
 }
 
-const votation1 = new Votation('Qual sua linguagem de programação favorita?');
-votation1.addVotationOption({ option: 'Python', numberOfvotes: 0 });
-votation1.addVotationOption({ option: 'JavaScript', numberOfvotes: 0 });
-votation1.addVotationOption({ option: 'TypeScript', numberOfvotes: 0 });
-votation1.vote(1);
-votation1.vote(1);
-votation1.vote(0);
+const votation1 = new Votation('Torce p qual time?');
+votation1.addOption({ option: 'flamengo', numberOfVotes: 0 });
+votation1.addOption({ option: 'vasco', numberOfVotes: 0 });
+votation1.addOption({ option: 'fluminense', numberOfVotes: 0 });
+votation1.addOption({ option: 'botafogo', numberOfVotes: 0 });
+
 votation1.vote(0);
 votation1.vote(0);
 votation1.vote(2);
 
-const votation2 = new Votation('Qual sua cor favorita?');
-votation2.addVotationOption({ option: 'Vermelho', numberOfvotes: 0 });
-votation2.addVotationOption({ option: 'Verde', numberOfvotes: 0 });
-votation2.addVotationOption({ option: 'Azul', numberOfvotes: 0 });
-votation2.addVotationOption({ option: 'Roxo', numberOfvotes: 0 });
-votation2.addVotationOption({ option: 'Marron', numberOfvotes: 0 });
-votation2.vote(0);
-votation2.vote(2);
-votation2.vote(2);
-votation2.vote(1);
-votation2.vote(4);
-votation2.vote(2);
+const app = new VotationApp();
 
-const votationApp = new VotationApp();
-votationApp.addVotation(votation1);
-votationApp.addVotation(votation2);
-
-votationApp.showVotations();
+app.addVotation(votation1);
+app.showVotation();
+// module mode
+export default Votation;

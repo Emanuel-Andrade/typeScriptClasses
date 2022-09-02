@@ -1,37 +1,49 @@
 export class Empresa {
-  public readonly nome: string; // public não necessário
-  private readonly colaboradores: Colaborador[] = [];
+  public readonly name: string; //Public é redundante
+  readonly colaboradores: Colaborador[] = [];
   protected readonly cnpj: string;
 
-  constructor(nome: string, cnpj: string) {
-    this.nome = nome;
+  constructor(name: string, cnpj: string) {
+    this.name = name;
     this.cnpj = cnpj;
   }
 
-  adicionaColaborador(colaborador: Colaborador): void {
+  addColaborador(colaborador: Colaborador): void {
     this.colaboradores.push(colaborador);
-  }
-
-  mostrarColaboradores(): void {
-    for (const colaborador of this.colaboradores) {
-      console.log(colaborador);
-    }
   }
 }
 
 export class Colaborador {
   constructor(
-    public readonly nome: string,
-    public readonly sobrenome: string,
+    readonly nome: string,
+    readonly sobrenome: string,
+    readonly matrícula: number,
   ) {}
 }
 
-const empresa1 = new Empresa('Udemy', '11.111.111/0001-11');
-const colaborador1 = new Colaborador('Luiz', 'Otávio');
-const colaborador2 = new Colaborador('Maria', 'Miranda');
-const colaborador3 = new Colaborador('João', 'Vieira');
-empresa1.adicionaColaborador(colaborador1);
-empresa1.adicionaColaborador(colaborador2);
-empresa1.adicionaColaborador(colaborador3);
+const empresa1 = new Empresa('Vivandas', '000001-000');
+const func1 = new Colaborador(
+  'João',
+  'Gomes',
+  empresa1.colaboradores.length + 1,
+);
+empresa1.addColaborador(func1);
+const func2 = new Colaborador(
+  'Carlos',
+  'Mouras',
+  empresa1.colaboradores.length + 1,
+);
+empresa1.addColaborador(func2);
+const func3 = new Colaborador(
+  'Márcio',
+  'Trindad',
+  empresa1.colaboradores.length + 1,
+);
+empresa1.addColaborador(func3);
+const func4 = new Colaborador(
+  'Roberto',
+  'Felisbino',
+  empresa1.colaboradores.length + 1,
+);
+empresa1.addColaborador(func4);
 console.log(empresa1);
-empresa1.mostrarColaboradores();

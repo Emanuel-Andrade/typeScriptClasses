@@ -1,42 +1,37 @@
-function decorador(
+function decorator(
   classPrototype: any,
   nomeMetodo: string,
   descriptor: PropertyDescriptor,
-): PropertyDescriptor | void {
-  console.log(classPrototype);
-  console.log(nomeMetodo);
-  console.log(descriptor);
+): PropertyDescriptor {
+  return {
+    value: function (...args: string[]) {
+      return args[0].toLocaleUpperCase();
+    },
+  };
 }
 
-export class UmaPessoa {
+export class Pessoa {
   nome: string;
   sobrenome: string;
   idade: number;
 
   constructor(nome: string, sobrenome: string, idade: number) {
+    this.idade = idade;
     this.nome = nome;
     this.sobrenome = sobrenome;
-    this.idade = idade;
   }
 
-  @decorador
-  metodo(msg: string): string {
-    return `${this.nome} ${this.sobrenome}: ${msg}`;
+  @decorator
+  apresentar(string: string): string {
+    return string;
   }
 
   get nomeCompleto(): string {
-    return this.nome + ' ' + this.sobrenome;
-  }
-
-  set nomeCompleto(valor: string) {
-    const palavras = valor.split(/\s+/g);
-    const primeiroNome = palavras.shift();
-    if (!primeiroNome) return;
-    this.nome = primeiroNome;
-    this.sobrenome = palavras.join(' ');
+    return 'o meu rei';
   }
 }
 
-const pessoa = new UmaPessoa('Luiz', 'Otávio', 30);
-const metodo = pessoa.metodo('Olá mundo!');
-console.log(metodo);
+const pessoa1 = new Pessoa('Carlão', 'da Marcia', 44);
+
+const tt = pessoa1.apresentar('dsfsfdsd');
+console.log(tt);
